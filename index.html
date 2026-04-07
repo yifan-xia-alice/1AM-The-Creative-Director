@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 1AM Creative Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Zalando+Sans+SemiExpanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root {
+  --bg:      #F6F5F1;
+  --white:   #FFFFFF;
+  --ink:     #111111;
+  --ink-mid: #3D3D3A;
+  --ink-soft:#3f3f3f;
+  --border:  #DEDDD8;
+
+  --c1: #C95400;
+  --c2: #1554B0;
+  --c3: #16733A;
+
+  --c1-tint: #FFF2E8;
+  --c2-tint: #EBF2FF;
+  --c3-tint: #EAFAF0;
+
+  --sans:    'DM Sans','Helvetica Neue',Arial,sans-serif;
+  --display: 'Zalando Sans SemiExpanded', sans-serif;
+  --max: 1020px;
+}
+
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); font-size:15px; font-weight:400; line-height:1.6; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; }
+
+:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
+:focus:not(:focus-visible) { outline:none; }
+
+/* TOPBAR */
+.topbar {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:42px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; padding:0 36px; gap:0; background-color:rgb(255, 255, 255, 0.75);
+}
+.tb-brand { font-family:var(--display); font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink); }
+.tb-div { width:1px; height:16px; background:var(--border); margin:0 16px; flex-shrink:0; }
+.tb-clock { font-size:12px; font-variant-numeric:tabular-nums; color:var(--ink-soft); letter-spacing:0.04em; }
+.tb-right { margin-left:auto; font-family:var(--display); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); font-weight:600; }
+
+/* HEADER */
+.header { padding-top:42px; border-bottom:1px solid var(--border); background:var(--white); }
+.header-inner { max-width:var(--max); margin:0 auto; padding:60px 36px 52px; }
+
+.h-top { display:flex; align-items:flex-start; gap:0; margin-bottom:32px; }
+.h-index {
+  font-family:var(--display);
+  font-size:clamp(36px,1.5vw,128px);
+  font-weight:800; line-height:0.65;
+  color:var(--border); letter-spacing:-0.04em;
+  user-select:none; flex-shrink:0; margin-right:20px; margin-top:6px;
+}
+.h-title { display:flex; flex-direction:column; }
+.h-eye {
+  font-family:var(--display); font-size:11px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;
+}
+.h-h1 {
+  font-family:var(--display);
+  font-size:clamp(40px,6.5vw,80px);
+  font-weight:800; line-height:0.92; letter-spacing:-0.03em; color:var(--ink);text-transform:uppercase;
+}
+.h-h1 .acc { color:var(--c1); }
+
+.h-bottom {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  border-top:1px solid var(--border); margin-top:28px;
+}
+.h-col { padding:20px 28px 20px 0; border-right:1px solid var(--border); }
+.h-col:last-child { border-right:none; padding-left:28px; padding-right:0; }
+.h-col:nth-child(2) { padding-left:28px; }
+.h-col-label { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px; }
+.h-col-val { font-size:13px; color:var(--ink-mid); line-height:1.5; }
+
+/* LAYOUT */
+.wrap { max-width:var(--max); margin:0 auto; padding:0 36px 120px; }
+
+.row {
+  display:grid; grid-template-columns:148px 1fr;
+  gap:0 48px; border-bottom:1px solid var(--border); padding:40px 0;
+}
+.row-lbl {
+  font-family:var(--display); font-size:10px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); padding-top:3px;
+}
+.row-c { min-width:0; }
+
+/* STEPS */
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:0; background:var(--border); }
+.step { background:var(--white); padding:20px 22px; }
+.step-n { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.step-title { font-family:var(--display); font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--ink); margin-bottom:4px; }
+.step-desc { font-size:12px; color:var(--ink-soft); line-height:1.5; }
+
+/* SAMPLE */
+.s-toggle {
+  background:none; border:none; cursor:pointer;
+  font-family:var(--display); font-size:12px; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-mid);
+  display:flex; align-items:center; gap:10px; padding:0; transition:color 0.15s;
+}
+.s-toggle:hover { color:var(--ink); }
+.s-circle {
+  width:20px; height:20px; border:1.5px solid currentColor; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:400; line-height:1; flex-shrink:0;
+  transition:transform 0.25s;
+}
+.s-circle.open { transform:rotate(45deg); }
+
+.s-body { display:none; margin-top:28px; }
+.s-body.open { display:block; }
+
+.s-input { border:1px solid var(--border); background:var(--white); padding:20px 24px; margin-bottom:20px; }
+.s-input-lbl { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; display:block; }
+.s-ctx { font-size:12px; color:var(--ink-soft); border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:14px; line-height:1.55; }
+.s-work { font-size:14px; color:var(--ink-mid); line-height:1.8; white-space:pre-line; }
+
+/* CARDS */
+.cards { display:flex; flex-direction:column; gap:1px; background:var(--border); }
+
+.cc { background:var(--white); overflow:hidden; }
+
+.cc-strip {
+  border-left:4px solid; padding:22px 28px 18px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+}
+.cc-strip-c1 { border-color:var(--c1); }
+.cc-strip-c2 { border-color:var(--c2); }
+.cc-strip-c3 { border-color:var(--c3); }
+
+.cc-name {
+  font-family:var(--display);
+  font-size:clamp(28px,4vw,48px);
+  font-weight:800; letter-spacing:-0.03em; line-height:1;
+}
+.cc-name-c1 { color:var(--c1); }
+.cc-name-c2 { color:var(--c2); }
+.cc-name-c3 { color:var(--c3); }
+
+.cc-meta { text-align:right; flex-shrink:0; }
+.cc-num { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:3px; }
+.cc-fun { font-size:11px; color:var(--ink-soft); display:block; }
+
+.cc-imp { border-top:1px solid var(--border); border-left:4px solid transparent; padding:18px 28px; }
+.cc-imp-c1 { background:var(--c1-tint); border-left-color:var(--c1); }
+.cc-imp-c2 { background:var(--c2-tint); border-left-color:var(--c2); }
+.cc-imp-c3 { background:var(--c3-tint); border-left-color:var(--c3); }
+
+.imp-q { font-family:var(--display); font-size:16px; font-weight:600; letter-spacing:-0.01em; line-height:1.5; color:var(--ink); }
+
+.cc-body { border-top:1px solid var(--border); padding:24px 28px; display:grid; grid-template-columns:1fr 1fr; gap:20px 40px; }
+
+.fb-h { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; display:block; }
+
+.fb-l { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.fb-l li { font-size:13px; color:var(--ink-mid); line-height:1.6; padding-left:16px; position:relative; }
+.fb-l li::before { content:''; position:absolute; left:0; top:9px; width:6px; height:1.5px; }
+.fb-l-c1 li::before { background:var(--c1); }
+.fb-l-c2 li::before { background:var(--c2); }
+.fb-l-c3 li::before { background:var(--c3); }
+
+.cc-fix { grid-column:1/-1; border-top:1px solid var(--border); padding-top:16px; }
+.fix-box { padding:14px 18px; display:flex; gap:14px; align-items:flex-start; }
+.fix-box-c1 { background:var(--c1-tint); }
+.fix-box-c2 { background:var(--c2-tint); }
+.fix-box-c3 { background:var(--c3-tint); }
+.fix-lbl { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; padding-top:2px; flex-shrink:0; }
+.fix-lbl-c1 { color:var(--c1); }
+.fix-lbl-c2 { color:var(--c2); }
+.fix-lbl-c3 { color:var(--c3); }
+.fix-div { width:1px; background:var(--border); align-self:stretch; flex-shrink:0; }
+.fix-txt { font-family:var(--display); font-size:14px; font-weight:600; letter-spacing:-0.01em; color:var(--ink); line-height:1.55; }
+
+/* API */
+.api-wrap { border:1px solid var(--border); background:var(--white); }
+.api-hd { display:flex; align-items:center; gap:12px; padding:13px 20px; cursor:pointer; user-select:none; transition:background 0.1s; }
+.api-hd:hover { background:var(--bg); }
+.api-hd-lbl { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); }
+.api-status { margin-left:auto; display:flex; align-items:center; gap:6px; font-size:11px; color:var(--ink-soft); }
+.sdot { width:5px; height:5px; border-radius:50%; background:var(--border); transition:background 0.3s; }
+.sdot.on { background:var(--c3); }
+.api-bd { padding:0 20px 18px; border-top:1px solid var(--border); }
+.api-in { width:100%; font-family:var(--sans); font-size:13px; padding:10px 14px; border:1px solid var(--border); background:var(--bg); color:var(--ink); outline:none; transition:border-color 0.15s; margin-top:14px; letter-spacing:0.02em; }
+.api-in:focus { border-color:var(--ink); }
+.api-hint { margin-top:7px; font-size:11px; color:var(--ink-soft); line-height:1.5; }
+.api-hint a { color:var(--ink-mid); }
+
+/* INPUTS */
+.f-lbl { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; display:block; }
+.ta { width:100%; font-family:var(--sans); font-size:14px; line-height:1.65; padding:14px 16px; border:1px solid var(--border); background:var(--white); color:var(--ink); resize:vertical; outline:none; transition:border-color 0.15s; }
+.ta:focus { border-color:var(--ink); }
+.ta::placeholder { color:var(--border); }
+.ta-work { min-height:160px; }
+.ta-ctx  { min-height:76px; }
+.field + .field { margin-top:20px; }
+
+.in-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:16px; }
+.sc { font-size:11px; color:var(--ink-soft); }
+.sc kbd { font-family:var(--sans); font-size:10px; background:var(--bg); border:1px solid var(--border); padding:1px 5px; color:var(--ink-mid); }
+
+.fmt-btn { background:none; border:none; cursor:pointer; font-family:var(--sans); font-size:11px; color:var(--ink-soft); padding:0; text-decoration:underline; text-underline-offset:2px; transition:color 0.15s; }
+.fmt-btn:hover { color:var(--ink); }
+.fmt-drop { display:none; margin-top:10px; padding:14px 16px; background:var(--white); border:1px solid var(--border); }
+.fmt-drop.open { display:block; }
+.fmt-drop p { font-size:12px; color:var(--ink-soft); margin-bottom:8px; line-height:1.5; }
+.fmt-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.fmt-chip { font-size:11px; color:var(--ink-mid); border:1px solid var(--border); background:var(--bg); padding:2px 8px; }
+
+/* BTN */
+.btn { font-family:var(--display); font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); background:var(--ink); border:none; padding:13px 28px; cursor:pointer; display:inline-flex; align-items:center; gap:10px; transition:background 0.15s; white-space:nowrap; }
+.btn:hover:not(:disabled) { background:var(--ink-mid); }
+.btn:disabled { opacity:0.35; cursor:not-allowed; }
+.barr { transition:transform 0.2s; }
+.btn:hover:not(:disabled) .barr { transform:translateX(4px); }
+
+/* ERROR */
+.err { display:none; margin-top:14px; padding:12px 16px; border:1px solid #E0BBBB; background:#FDF5F5; font-size:13px; color:#8B3333; line-height:1.5; }
+.err.on { display:block; }
+
+/* LOADING */
+.loading { display:none; padding:56px 0; text-align:center; }
+.loading.on { display:block; }
+.load-bars { display:flex; justify-content:center; align-items:flex-end; gap:5px; height:36px; margin-bottom:24px; }
+.lb { width:3px; animation:bw 1.2s ease-in-out infinite; }
+.lb:nth-child(1){background:var(--c1);animation-delay:0s}
+.lb:nth-child(2){background:var(--c1);animation-delay:0.1s}
+.lb:nth-child(3){background:var(--c2);animation-delay:0.2s}
+.lb:nth-child(4){background:var(--c2);animation-delay:0.3s}
+.lb:nth-child(5){background:var(--c3);animation-delay:0.4s}
+.lb:nth-child(6){background:var(--c3);animation-delay:0.5s}
+@keyframes bw { 0%,100%{height:6px;opacity:0.3} 50%{height:32px;opacity:1} }
+.load-txt { font-family:var(--display); font-size:16px; font-weight:700; letter-spacing:-0.01em; color:var(--ink-mid); }
+
+/* RESULTS */
+.results { display:none; opacity:0; transform:translateY(8px); transition:opacity 0.4s,transform 0.4s; }
+.results.on { display:block; }
+.results.go { opacity:1; transform:translateY(0); }
+.r-hd { display:grid; grid-template-columns:148px 1fr; gap:0 48px; padding:40px 0 32px; border-bottom:1px solid var(--border); }
+.r-hd-lbl { font-family:var(--display); font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); padding-top:3px; }
+.r-hd-title { font-family:var(--display); font-size:clamp(28px,4vw,52px); font-weight:800; letter-spacing:-0.03em; line-height:1; color:var(--ink); margin-bottom:8px; }
+.r-hd-sub { font-size:13px; color:var(--ink-soft); }
+
+/* FOOTER */
+footer { border-top:1px solid var(--border); background:var(--white); }
+.foot { max-width:var(--max); margin:0 auto; padding:20px 36px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.foot-t { font-size:11px; color:var(--ink-soft); }
+.foot-t a { color:var(--ink-mid); text-decoration:none; }
+.foot-t a:hover { color:var(--ink); }
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .h-bottom{grid-template-columns:1fr 1fr}
+  .h-col:last-child{grid-column:1/-1;border-right:none;padding-left:0}
+  .wrap{padding:0 24px 100px}
+  .row{grid-template-columns:1fr;gap:16px}
+  .r-hd{grid-template-columns:1fr;gap:12px}
+  .cc-body{grid-template-columns:1fr}
+  .cc-fix{grid-column:1}
+  .steps{grid-template-columns:1fr}
+  .header-inner{padding:40px 24px 36px}
+}
+@media(max-width:560px){
+  .topbar{padding:0 16px}
+  .tb-right{display:none}
+  .header-inner{padding:28px 16px}
+  .h-index{font-size:56px}
+  .h-bottom{grid-template-columns:1fr}
+  .h-col{border-right:none;padding-left:0!important;padding-right:0!important}
+  .wrap{padding:0 16px 80px}
+  .cc-strip{padding:16px 18px 14px}
+  .cc-imp{padding:14px 18px}
+  .cc-body{padding:18px 18px}
+  .fix-box{flex-direction:column;gap:8px}
+  .fix-div{display:none}
+  .foot{padding:16px;flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="tb-brand">1AM</span>
+  <div class="tb-div"></div>
+  <span class="tb-clock" id="clock">00:00:00</span>
+  <span class="tb-right">Creative Director</span>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="h-top">
+      <span class="h-index" aria-hidden="true">1AM</span>
+      <div class="h-title">
+        <span class="h-eye">Creative feedback tool</span>
+        <h1 class="h-h1">The<br><span class="acc">Creative</span><br>Director</h1>
+      </div>
+    </div>
+    <div class="h-bottom">
+      <div class="h-col">
+        <div class="h-col-label">What it does</div>
+        <div class="h-col-val">Honest feedback through three marketing lenses — before you walk into the room.</div>
+      </div>
+      <div class="h-col">
+        <div class="h-col-label">How long it takes</div>
+        <div class="h-col-val">Paste your work. Add context. Get three perspectives in about 10 seconds.</div>
+      </div>
+      <div class="h-col">
+        <div class="h-col-label">Who it's for</div>
+        <div class="h-col-val">Anyone who finishes something at 1AM with a 9AM presentation and no one left to ask.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="row">
+    <div class="row-lbl">How it works</div>
+    <div class="row-c">
+      <div class="steps">
+        <div class="step"><div class="step-n">01</div><div class="step-title">Paste your work</div><div class="step-desc">Copy, headlines, scripts, briefs, captions — anything text-based</div></div>
+        <div class="step"><div class="step-n">02</div><div class="step-title">Add context</div><div class="step-desc">Who it's for, what platform, what it needs to make people do</div></div>
+        <div class="step"><div class="step-n">03</div><div class="step-title">Get feedback</div><div class="step-desc">Three perspectives: The Stranger, The Skeptic, The Converter</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-lbl">Example</div>
+    <div class="row-c">
+      <button class="s-toggle" onclick="toggleSample()" aria-expanded="false" aria-controls="s-bd">
+        <span class="s-circle" id="s-icon">+</span>
+        See it in action
+      </button>
+      <div class="s-body" id="s-bd">
+        <div class="s-input">
+          <span class="s-input-lbl">*Example input</span>
+          <p class="s-ctx"><strong>Context:</strong> Instagram feed ad for Vela, a sustainable sneaker brand targeting women 25–35. Goal: stop the scroll and drive product page clicks.</p>
+          <p class="s-work">She doesn't follow trends. She sets them.
+
+Meet Vela — the sneaker built for women who move on their own terms. Recycled ocean plastic uppers. Zero dye process. 100% carbon neutral shipping.
+
+Yours for $148. Free returns, always.
+
+[Shop Vela →]</p>
+        </div>
+        <div class="cards">
+          <div class="cc">
+            <div class="cc-strip cc-strip-c1"><span class="cc-name cc-name-c1">The Stranger</span><div class="cc-meta"><span class="cc-num">01</span><span class="cc-fun">Top of Funnel</span></div></div>
+            <div class="cc-imp cc-imp-c1"><p class="imp-q">"The opener almost got me — but I wasn't sure this was about shoes until halfway through."</p></div>
+            <div class="cc-body">
+              <div><span class="fb-h">What's working</span><ul class="fb-l fb-l-c1"><li>"She doesn't follow trends" creates an identity hook — you read it and feel seen</li><li>"Zero dye process" is specific and unusual — more interesting than just "sustainable"</li><li>Price and free returns up front remove hesitation early</li></ul></div>
+              <div><span class="fb-h">What's not landing</span><ul class="fb-l fb-l-c1"><li>What does Vela actually look like? I'm picturing a shoe with nothing to grab onto</li><li>Is "ocean plastic" a feature or am I supposed to feel guilty?</li><li>The "[Shop Vela →]" bracket format reads like placeholder copy</li></ul></div>
+              <div class="cc-fix"><div class="fix-box fix-box-c1"><span class="fix-lbl fix-lbl-c1">Fix before tomorrow</span><div class="fix-div"></div><p class="fix-txt">Add one concrete visual detail — a color, a silhouette word — something that makes me picture the shoe in the first 3 seconds.</p></div></div>
+            </div>
+          </div>
+          <div class="cc">
+            <div class="cc-strip cc-strip-c2"><span class="cc-name cc-name-c2">The Skeptic</span><div class="cc-meta"><span class="cc-num">02</span><span class="cc-fun">Mid Funnel</span></div></div>
+            <div class="cc-imp cc-imp-c2"><p class="imp-q">"This reads like a brand that hired someone good to write for them — but I still don't know who's actually behind it."</p></div>
+            <div class="cc-body">
+              <div><span class="fb-h">What's working</span><ul class="fb-l fb-l-c2"><li>"Zero dye process" is a genuine differentiator — I'd Google that</li><li>"100% carbon neutral shipping" is auditable — earns trust rather than demands it</li><li>Free returns signals real confidence in the product</li></ul></div>
+              <div><span class="fb-h">What's not landing</span><ul class="fb-l fb-l-c2"><li>"Move on their own terms" does a lot of lifting without backup — what does it mean for this shoe?</li><li>Why ocean plastic? Is there a story, or just a material choice?</li><li>Every sustainable sneaker says "built for women who..." — what makes Vela different?</li></ul></div>
+              <div class="cc-fix"><div class="fix-box fix-box-c2"><span class="fix-lbl fix-lbl-c2">Fix before tomorrow</span><div class="fix-div"></div><p class="fix-txt">Give the brand a real point of view in one sentence — what does Vela believe that other sneaker brands don't?</p></div></div>
+            </div>
+          </div>
+          <div class="cc">
+            <div class="cc-strip cc-strip-c3"><span class="cc-name cc-name-c3">The Converter</span><div class="cc-meta"><span class="cc-num">03</span><span class="cc-fun">Bottom of Funnel</span></div></div>
+            <div class="cc-imp cc-imp-c3"><p class="imp-q">"I'm interested and the price is reasonable — but I don't know where I'm actually going when I click."</p></div>
+            <div class="cc-body">
+              <div><span class="fb-h">What's working</span><ul class="fb-l fb-l-c3"><li>$148 with free returns is a reasonable ask — the value math lands</li><li>Return policy addresses my biggest hesitation before I had to ask</li><li>CTA is at the end where I'm most ready to act — right placement</li></ul></div>
+              <div><span class="fb-h">What's not landing</span><ul class="fb-l fb-l-c3"><li>When I click "Shop Vela," do I land on the product or a homepage?</li><li>Is there one style, one colorway? If I'm choosing, help me choose</li><li>Why now? Free returns are always available — what's my reason to act today?</li></ul></div>
+              <div class="cc-fix"><div class="fix-box fix-box-c3"><span class="fix-lbl fix-lbl-c3">Fix before tomorrow</span><div class="fix-div"></div><p class="fix-txt">Rewrite the CTA to name the destination: "See the Vela in Chalk →" or "Find your size →" — something that tells me exactly where I'm landing.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-lbl">API key</div>
+    <div class="row-c">
+      <div class="api-wrap">
+        <div class="api-hd" onclick="toggleApi()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleApi();}" role="button" tabindex="0" aria-expanded="true" aria-controls="api-bd" aria-label="API settings">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="2" y="5.5" width="9" height="7" rx="1" stroke="#6B6B67" stroke-width="1.2"/><path d="M4 5.5V4A2.5 2.5 0 019 4v1.5" stroke="#6B6B67" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <span class="api-hd-lbl">Anthropic API Key</span>
+          <span class="api-status"><span class="sdot" id="sdot"></span><span id="stxt">Not set</span></span>
+        </div>
+        <div class="api-bd" id="api-bd">
+          <input type="password" id="api-key" class="api-in" placeholder="sk-ant-..." autocomplete="off" aria-label="Anthropic API key" oninput="onKey(this.value)">
+          <p class="api-hint">Used directly in your browser — never stored. Get one at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-lbl">Your work</div>
+    <div class="row-c">
+      <div class="field">
+        <label class="f-lbl" for="work">Creative work</label>
+        <textarea id="work" class="ta ta-work" placeholder="Paste your copy, headline, script, email, caption, brief…" aria-label="Your creative work"></textarea>
+        <div style="margin-top:8px">
+          <button class="fmt-btn" onclick="toggleFmt()" aria-expanded="false" aria-controls="fmt-drop">What formats work best?</button>
+          <div class="fmt-drop" id="fmt-drop">
+            <p>Anything text-based. Paste the actual copy, not a description of it.</p>
+            <div class="fmt-chips">
+              <span class="fmt-chip">Ad copy</span><span class="fmt-chip">Email subject</span><span class="fmt-chip">Landing page</span><span class="fmt-chip">Social caption</span><span class="fmt-chip">Brand manifesto</span><span class="fmt-chip">Campaign brief</span><span class="fmt-chip">Pitch deck slide</span><span class="fmt-chip">Product description</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="f-lbl" for="ctx">Context <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--border)">(optional)</span></label>
+        <textarea id="ctx" class="ta ta-ctx" placeholder="Who is this for? What platform? What should it make people do?" aria-label="Optional context"></textarea>
+      </div>
+      <div class="in-foot">
+        <button class="btn" id="fbtn" onclick="getFeedback()" aria-label="Get feedback, keyboard shortcut Cmd or Ctrl Enter">
+          Get Feedback <span class="barr" aria-hidden="true">→</span>
+        </button>
+        <span class="sc"><kbd>⌘</kbd> + <kbd>Enter</kbd></span>
+      </div>
+      <div class="err" id="err" role="alert" aria-live="polite"><span id="err-msg"></span></div>
+    </div>
+  </div>
+
+  <div class="loading" id="loading" aria-live="polite">
+    <div class="load-bars"><div class="lb"></div><div class="lb"></div><div class="lb"></div><div class="lb"></div><div class="lb"></div><div class="lb"></div></div>
+    <p class="load-txt">Reading your work…</p>
+  </div>
+
+  <div class="results" id="results" role="region" aria-label="Feedback results" aria-live="polite">
+    <div class="r-hd">
+      <div class="r-hd-lbl">Feedback</div>
+      <div><div class="r-hd-title">Here's what<br>they think.</div><p class="r-hd-sub">Three honest perspectives. One read.</p></div>
+    </div>
+    <div class="cards" style="margin-top:32px">
+      <div class="cc">
+        <div class="cc-strip cc-strip-c1"><span class="cc-name cc-name-c1">The Stranger</span><div class="cc-meta"><span class="cc-num">01 — Top of Funnel</span><span class="cc-fun">Attention &amp; first impression</span></div></div>
+        <div class="cc-imp cc-imp-c1"><p class="imp-q" id="st-imp"></p></div>
+        <div class="cc-body">
+          <div><span class="fb-h">What's working</span><ul class="fb-l fb-l-c1" id="st-w"></ul></div>
+          <div><span class="fb-h">What's not landing</span><ul class="fb-l fb-l-c1" id="st-n"></ul></div>
+          <div class="cc-fix"><div class="fix-box fix-box-c1"><span class="fix-lbl fix-lbl-c1">Fix before tomorrow</span><div class="fix-div"></div><p class="fix-txt" id="st-f"></p></div></div>
+        </div>
+      </div>
+      <div class="cc">
+        <div class="cc-strip cc-strip-c2"><span class="cc-name cc-name-c2">The Skeptic</span><div class="cc-meta"><span class="cc-num">02 — Mid Funnel</span><span class="cc-fun">Authenticity &amp; credibility</span></div></div>
+        <div class="cc-imp cc-imp-c2"><p class="imp-q" id="sk-imp"></p></div>
+        <div class="cc-body">
+          <div><span class="fb-h">What's working</span><ul class="fb-l fb-l-c2" id="sk-w"></ul></div>
+          <div><span class="fb-h">What's not landing</span><ul class="fb-l fb-l-c2" id="sk-n"></ul></div>
+          <div class="cc-fix"><div class="fix-box fix-box-c2"><span class="fix-lbl fix-lbl-c2">Fix before tomorrow</span><div class="fix-div"></div><p class="fix-txt" id="sk-f"></p></div></div>
+        </div>
+      </div>
+      <div class="cc">
+        <div class="cc-strip cc-strip-c3"><span class="cc-name cc-name-c3">The Converter</span><div class="cc-meta"><span class="cc-num">03 — Bottom of Funnel</span><span class="cc-fun">Clarity &amp; reasons to act</span></div></div>
+        <div class="cc-imp cc-imp-c3"><p class="imp-q" id="c-imp"></p></div>
+        <div class="cc-body">
+          <div><span class="fb-h">What's working</span><ul class="fb-l fb-l-c3" id="c-w"></ul></div>
+          <div><span class="fb-h">What's not landing</span><ul class="fb-l fb-l-c3" id="c-n"></ul></div>
+          <div class="cc-fix"><div class="fix-box fix-box-c3"><span class="fix-lbl fix-lbl-c3">Fix before tomorrow</span><div class="fix-div"></div><p class="fix-txt" id="c-f"></p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot">
+    <p class="foot-t">The 1AM Creative Director · Built with the <a href="https://www.anthropic.com" target="_blank" rel="noopener">Anthropic API</a></p>
+    <p class="foot-t">Your key is never stored · All processing happens in your browser</p>
+  </div>
+</footer>
+
+<script>
+function tick(){const n=new Date();const p=v=>String(v).padStart(2,'0');document.getElementById('clock').textContent=`${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;}
+tick();setInterval(tick,1000);
+
+let apiOpen=true;
+function toggleApi(){const b=document.getElementById('api-bd');const h=document.querySelector('.api-hd');apiOpen=!apiOpen;b.style.display=apiOpen?'':'none';h.setAttribute('aria-expanded',apiOpen);}
+
+let sOpen=false;
+function toggleSample(){sOpen=!sOpen;document.getElementById('s-bd').classList.toggle('open',sOpen);const ic=document.getElementById('s-icon');ic.textContent=sOpen?'×':'+';ic.classList.toggle('open',sOpen);document.querySelector('.s-toggle').setAttribute('aria-expanded',sOpen);}
+
+let fOpen=false;
+function toggleFmt(){fOpen=!fOpen;document.getElementById('fmt-drop').classList.toggle('open',fOpen);document.querySelector('.fmt-btn').setAttribute('aria-expanded',fOpen);}
+
+function onKey(v){const ok=v.trim().startsWith('sk-');document.getElementById('sdot').classList.toggle('on',ok);document.getElementById('stxt').textContent=ok?'Key set':'Not set';}
+
+function showErr(m){const e=document.getElementById('err');document.getElementById('err-msg').textContent=m;e.classList.add('on');}
+function hideErr(){document.getElementById('err').classList.remove('on');}
+
+function setLoad(on){const btn=document.getElementById('fbtn');document.getElementById('loading').classList.toggle('on',on);btn.disabled=on;btn.innerHTML=on?'Reading… <span class="barr">→</span>':'Get Feedback <span class="barr" aria-hidden="true">→</span>';}
+
+function setList(id,arr){const el=document.getElementById(id);el.innerHTML='';(arr||[]).forEach(t=>{const li=document.createElement('li');li.textContent=t;el.appendChild(li);});}
+
+function render(d){
+  document.getElementById('st-imp').textContent=`"${d.stranger.first_impression||''}"`;
+  setList('st-w',d.stranger.whats_working);setList('st-n',d.stranger.whats_not_landing);
+  document.getElementById('st-f').textContent=d.stranger.fix_before_tomorrow||'';
+  document.getElementById('sk-imp').textContent=`"${d.skeptic.first_impression||''}"`;
+  setList('sk-w',d.skeptic.whats_working);setList('sk-n',d.skeptic.whats_not_landing);
+  document.getElementById('sk-f').textContent=d.skeptic.fix_before_tomorrow||'';
+  document.getElementById('c-imp').textContent=`"${d.converter.first_impression||''}"`;
+  setList('c-w',d.converter.whats_working);setList('c-n',d.converter.whats_not_landing);
+  document.getElementById('c-f').textContent=d.converter.fix_before_tomorrow||'';
+  const r=document.getElementById('results');
+  r.classList.add('on');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>r.classList.add('go')));
+  setTimeout(()=>r.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+const SYS=`You are "The 1AM Creative Director" — a sharp, warm feedback tool evaluating creative work through three honest marketing lenses.
+
+CHARACTER 1 — THE STRANGER (Top of Funnel): Scrolling at max speed. Evaluates: pattern interruption, 3-second test, emotional hook. Speaks first person, honest, direct.
+
+CHARACTER 2 — THE SKEPTIC (Mid Funnel): Has a BS detector. Evaluates: authenticity, earned claims, tone consistency, try-hard signals. Speaks first person, asks pointed questions.
+
+CHARACTER 3 — THE CONVERTER (Bottom of Funnel): Genuinely interested but not yet acting. Evaluates: value prop clarity, CTA strength, friction, urgency. Speaks first person, practical.
+
+Respond ONLY with valid JSON, no preamble, no markdown fences:
+{"stranger":{"first_impression":"one sentence","whats_working":["a","b","c"],"whats_not_landing":["a","b","c"],"fix_before_tomorrow":"one concrete suggestion"},"skeptic":{"first_impression":"one sentence","whats_working":["a","b","c"],"whats_not_landing":["a","b","c"],"fix_before_tomorrow":"one concrete suggestion"},"converter":{"first_impression":"one sentence","whats_working":["a","b","c"],"whats_not_landing":["a","b","c"],"fix_before_tomorrow":"one concrete suggestion"}}
+
+Rules: first person; 2-3 items per list; specific references to the actual work; questions in whats_not_landing; one concrete fix_before_tomorrow.`;
+
+async function getFeedback(){
+  hideErr();
+  const key=document.getElementById('api-key').value.trim();
+  const work=document.getElementById('work').value.trim();
+  const ctx=document.getElementById('ctx').value.trim();
+  if(!key){showErr('Please enter your Anthropic API key above.');if(!apiOpen)toggleApi();document.getElementById('api-key').focus();return;}
+  if(!work){showErr('Please paste your creative work first.');document.getElementById('work').focus();return;}
+  setLoad(true);
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2048,system:SYS,messages:[{role:'user',content:`Evaluate this.\n\nCONTEXT:\n${ctx||'(none)'}\n\nWORK:\n${work}`}]})
+    });
+    if(!res.ok){
+      const e=await res.json().catch(()=>({}));
+      let m=e?.error?.message||`API error (${res.status})`;
+      if(res.status===401)m='Invalid API key. Check your Anthropic key.';
+      if(res.status===429)m='Rate limit reached. Wait a moment and try again.';
+      throw new Error(m);
+    }
+    const data=await res.json();
+    let txt=data?.content?.[0]?.text?.trim()||'';
+    const fence=txt.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if(fence)txt=fence[1].trim();
+    const parsed=JSON.parse(txt);
+    if(!parsed.stranger||!parsed.skeptic||!parsed.converter)throw new Error('Unexpected format. Please try again.');
+    render(parsed);
+  }catch(e){
+    showErr(e.message||'Something went wrong. Check your key and try again.');
+  }finally{
+    setLoad(false);
+  }
+}
+
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();getFeedback();}});
+</script>
+</body>
+</html>
